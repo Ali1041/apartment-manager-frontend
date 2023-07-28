@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export class APIService{
     constructor(auth = false){
-        this.baseURL = 'http://localhost:5001'
+        this.baseURL = 'http://localhost:3000'
         this.headers = auth ? 
         {
             'Content-Type': 'application/json',

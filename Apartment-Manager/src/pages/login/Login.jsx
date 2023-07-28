@@ -1,93 +1,134 @@
-import { Button, Container, Grid, Paper, Stack, TextField, Typography, useTheme } from '@mui/material'
-import React from 'react'
-import { useForm } from 'react-hook-form';
-import { useNavigate } from "react-router-dom";
-import { APIService } from '../../Services/APIService'
+import React from "react";
+import useLoginHook from "./useLoginHook";
+import TextField from "@mui/material/TextField";
 
 const Login = () => {
-
-  const navigate = useNavigate()
-  const theme = useTheme();
-    const { register, 
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
-    const onSubmit = (data) => {
-      const {username, password} = data
-      console.log(username)
-      // API call to backend to authenticate username and password
-      const apiService = new APIService(true)
-      async function login(){
-        return await apiService.post('/login', {username, password})
-        
-      }
-      login().then((res) => {
-        console.log(res)
-        localStorage.setItem('authToken', res.data.authToken)
-        navigate('/home')
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      // store the token in local storage
-    }
+  const { email, password, isLoading, handleOnChange, handleOnBlur, handleSubmit } =
+    useLoginHook();
 
   return (
-    <Grid direction={"row"} justifyContent="center" alignItems={"center"} container sx={{ backgroundColor: 'lavender', height: '100vh'}}>
-      <Grid item sx={{minWidth: '250px'}} xs={8} sm={8} md={6} lg={4} xl={4}>
-    <Paper sx={{padding:2, py: 3}}>
-      <Container maxWidth='xs'>
-        <Typography
-          color={theme.palette.secondary.main}
-          variant='h4'
-          component='h2'
-        >Welcome!
-        </Typography>
-        <Typography
-        component={'body'}
-        color={theme.palette.primary.light}
-        sx={{mb:5}}>
-          Please enter your username and password.
-        </Typography>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={2} alignItems="center">
-              <TextField
-                  variant='outlined'
-                  label='Username'
-                  fullWidth
-                  autoFocus
-                  {...register('username', {
-                      required: "Please enter your username",
-                  })}
-                  error={!!errors?.username}
-                  helperText={errors?.username ? errors.username.message : null}
-              />
-              <TextField
-                variant='outlined'
-                label='Password'
-                fullWidth
-                type="password"
-                error={!!errors?.password}
-                helperText={errors?.password ? errors.password.message : null}
-                {...register('password', {
-                  required: 'Please enter password',
-                  minLength: 4
-                })}
-              />
-              <Button
-                type='submit'
-                variant='contained'
-                title='Login'
-                sx={{mt: 3, width: '30%'}}
-              >Login</Button>
-              </Stack>
-          </form>
-      </Container>
-      </Paper>
-      </Grid>
-    </Grid>
-  )
-}
+    <div>
+      <section class="bg-gray-50">
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <a
+            href="#"
+            class="flex items-center mb-6 text-2xl font-semibold text-gray-900"
+          >
+            <img
+              class="w-8 h-8 mr-2"
+              src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
+              alt="logo"
+            />
+            Flowbite
+          </a>
+          <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                Sign in to your account
+              </h1>
 
+              <form class="space-y-4 md:space-y-6">
+                <div>
+                  <TextField
+                    error={email.error}
+                    label="Email"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your Email"
+                    onChange={(e) => handleOnChange(e)}
+                    value={email.value}
+                    helperText={email.error}
+                    className="w-full"
+                    required
+                    onBlur={handleOnBlur}
+                  />
+                </div>
+                <div>
+                <TextField
+                    error={password.error}
+                    label="Password"
+                    type="password"
+                    name="password"
+                    placeholder="Enter your Password"
+                    onChange={(e) => handleOnChange(e)}
+                    value={password.value}
+                    helperText={password.error}
+                    className="w-full"
+                    required
+                    onBlur={handleOnBlur}
+                  />
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                      <input
+                        id="remember"
+                        aria-describedby="remember"
+                        type="checkbox"
+                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 "
+                        required=""
+                      />
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="remember" class="text-gray-500">
+                        Remember me
+                      </label>
+                    </div>
+                  </div>
+                  <a
+                    href="#"
+                    class="text-sm font-medium text-primary-600 hover:underline"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+                <button
+                  onClick={handleSubmit}
+                  disabled={isLoading}
+                  type="button"
+                  class={
+                    "w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " +
+                    (isLoading
+                      ? "flex items-center justify-center opacity-40 cursor-not-allowed"
+                      : "cursor-pointer")
+                  }
+                >
+                  {isLoading && (
+                    <div role="status">
+                      <svg
+                        aria-hidden="true"
+                        class="w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-red-800"
+                        viewBox="0 0 100 101"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                          fill="currentColor"
+                        />
+                        <path
+                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                          fill="currentFill"
+                        />
+                      </svg>
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                  )}
+                  Sign in
+                </button>
+                <p class="text-sm font-light text-gray-500">
+                  Don’t have an account yet?{" "}
+                  <a href="#" class="font-medium text-sky-600 hover:underline">
+                    Sign up
+                  </a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
 
-export default Login
+export default Login;
