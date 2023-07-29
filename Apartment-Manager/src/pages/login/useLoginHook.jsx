@@ -1,6 +1,8 @@
 import React from "react";
 import { validateEmail, validatePassword } from "./helper";
 import { APIService } from "../../Services/APIService";
+import { useNavigate } from "react-router-dom";
+
 
 const useLoginHook = () => {
   const [email, setEmail] = React.useState({
@@ -13,6 +15,8 @@ const useLoginHook = () => {
   });
 
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -55,6 +59,7 @@ const useLoginHook = () => {
         email,
         password,
       });
+      navigate("/")
     } catch (err) {
       console.log(err);
     }
