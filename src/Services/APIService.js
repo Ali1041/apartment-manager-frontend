@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export class APIService{
     constructor(auth = false){
-        this.baseURL = 'http://localhost:3000'
+        this.baseURL = 'https://apartment-management-theta.vercel.app'
         this.headers = auth ? 
         {
             'Content-Type': 'application/json',

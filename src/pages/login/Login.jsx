@@ -8,29 +8,29 @@ const Login = () => {
 
   return (
     <div>
-      <section class="bg-gray-50">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-          <a
-            href="#"
-            class="flex items-center mb-6 text-2xl font-semibold text-gray-900"
+      <section className="bg-gray-50">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <p
+            
+            className="flex items-center mb-6 text-2xl font-semibold text-gray-900"
           >
             <img
-              class="w-8 h-8 mr-2"
+              className="w-8 h-8 mr-2"
               src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg"
               alt="logo"
             />
             Flowbite
-          </a>
-          <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
-            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+          </p>
+          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Sign in to your account
               </h1>
 
-              <form class="space-y-4 md:space-y-6">
+              <form className="space-y-4 md:space-y-6">
                 <div>
                   <TextField
-                    error={email.error}
+                    error={!email.error}
                     label="Email"
                     type="email"
                     name="email"
@@ -45,7 +45,7 @@ const Login = () => {
                 </div>
                 <div>
                 <TextField
-                    error={password.error}
+                    error={!password.error}
                     label="Password"
                     type="password"
                     name="password"
@@ -58,26 +58,26 @@ const Login = () => {
                     onBlur={handleOnBlur}
                   />
                 </div>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-start">
-                    <div class="flex items-center h-5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-start">
+                    <div className="flex items-center h-5">
                       <input
                         id="remember"
                         aria-describedby="remember"
                         type="checkbox"
-                        class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 "
+                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 "
                         required=""
                       />
                     </div>
-                    <div class="ml-3 text-sm">
-                      <label for="remember" class="text-gray-500">
+                    <div className="ml-3 text-sm">
+                      <label htmlFor="remember" className="text-gray-500">
                         Remember me
                       </label>
                     </div>
                   </div>
                   <a
                     href="#"
-                    class="text-sm font-medium text-primary-600 hover:underline"
+                    className="text-sm font-medium text-primary-600 hover:underline"
                   >
                     Forgot password?
                   </a>
@@ -86,7 +86,7 @@ const Login = () => {
                   onClick={handleSubmit}
                   disabled={isLoading}
                   type="button"
-                  class={
+                  className={
                     "w-full text-white bg-sky-600 hover:bg-sky-700 focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " +
                     (isLoading
                       ? "flex items-center justify-center opacity-40 cursor-not-allowed"
@@ -97,7 +97,7 @@ const Login = () => {
                     <div role="status">
                       <svg
                         aria-hidden="true"
-                        class="w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-red-800"
+                        className="w-6 h-6 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-red-800"
                         viewBox="0 0 100 101"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
@@ -111,14 +111,14 @@ const Login = () => {
                           fill="currentFill"
                         />
                       </svg>
-                      <span class="sr-only">Loading...</span>
+                      <span className="sr-only">Loading...</span>
                     </div>
                   )}
                   Sign in
                 </button>
-                <p class="text-sm font-light text-gray-500">
+                <p className="text-sm font-light text-gray-500">
                   Don’t have an account yet?{" "}
-                  <a href="#" class="font-medium text-sky-600 hover:underline">
+                  <a href="#" className="font-medium text-sky-600 hover:underline">
                     Sign up
                   </a>
                 </p>
